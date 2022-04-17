@@ -40,4 +40,28 @@ public class WatertankHttpClientUtils {
         }
         return queryCurrentCapacity;
     }
+
+    /**
+     * An HTTP client method for invoking /AddWater endpoint
+     *
+     * @param watertankId
+     * @param port
+     * @return
+     */
+    public Boolean addWaterHttpClient(String watertankId, long liter, int port) {
+        Boolean waterAdded = null;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            final String baseUrl = "http://localhost:" + port + "/AddWater";
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl).queryParam("id", watertankId).queryParam("liter", liter);
+
+            ResponseEntity<Map> result = restTemplate.getForEntity(builder.toUriString(), Map.class);
+            String stringBoolean = (String) result.getBody().get("entity");
+            waterAdded = Boolean.parseBoolean(stringBoolean);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return waterAdded;
+    }
 }
