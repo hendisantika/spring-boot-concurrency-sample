@@ -34,4 +34,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
         super.addViewControllers( registry );
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
 }
