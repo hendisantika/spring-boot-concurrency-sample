@@ -35,4 +35,14 @@ public class WatertankManager {
     public Map<Integer, Watertank> getAllWatertanks() {
         return watertankServiceStub.getAllWatertanks();
     }
+
+    /**
+     * Get the maximum capacity amount of a specific water tank container
+     *
+     * @param watertankId
+     * @return {@link Double}
+     */
+    public double getMaxCapacity(Integer watertankId) {
+        return watertankServiceStub.getWatertankById(watertankId).getMaxCapacity();
+    }
 }
