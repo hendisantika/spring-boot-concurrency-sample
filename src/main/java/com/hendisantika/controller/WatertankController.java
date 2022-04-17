@@ -1,8 +1,20 @@
 package com.hendisantika.controller;
 
+import com.hendisantika.model.Watertank;
 import com.hendisantika.service.WatertankManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,4 +29,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class WatertankController {
     @Autowired
     private WatertankManager watertankManager;
+
+    /**
+     * Retrieve an {@link ArrayList} of all current {@link Watertank} 's
+     *
+     * @param req
+     * @param session
+     * @return {@link Response}
+     */
+    @GetMapping(path = "getAllWatertanks")
+    public Response getAllWatertanks(@Context HttpServletRequest req, @Context HttpSession session) {
+        List<Watertank> al = new ArrayList<Watertank>(watertankManager.getAllWatertanks().values());
+        return Response.status(200).entity(al).build();
+    }
 }
