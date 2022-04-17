@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -51,5 +52,13 @@ public class WatertankInMemoryDB {
         }
         watertanks = new HashSet<>();
         watertankManager.renewWaterTank() ;
+    }
+
+    /**
+     * Get the water-tank in-memory cached DB
+     * @return Map<Integer, Watertank>
+     */
+    public Map<Integer, Watertank> getWatertanks() {
+        return watertanksStorage;
     }
 }
