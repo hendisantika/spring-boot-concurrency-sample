@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,4 +43,20 @@ public class WatertankController {
         List<Watertank> al = new ArrayList<Watertank>(watertankManager.getAllWatertanks().values());
         return Response.status(200).entity(al).build();
     }
+
+
+    /**
+     * Retrieve the maximum capacity amount of a specific water tank container
+     *
+     * @param watertankId
+     * @param req
+     * @param session
+     * @return {@link Response}
+     */
+    @GetMapping(path = "QueryMaxCapacity")
+    public Response QueryMaxCapacity(@RequestParam("id") Integer watertankId, @Context HttpServletRequest req, @Context HttpSession session) {
+        String queryMaxCapacity = String.valueOf(watertankManager.getMaxCapacity(watertankId));
+        return Response.status(200).entity(queryMaxCapacity).build();
+    }
+
 }
