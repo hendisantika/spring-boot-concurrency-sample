@@ -64,4 +64,26 @@ public class WatertankHttpClientUtils {
 
         return waterAdded;
     }
+
+    /**
+     * An HTTP client method for invoking /QueryMaxCapacity endpoint
+     *
+     * @param watertankId
+     * @param port
+     * @return
+     */
+    public double getMaxCapacityHttpClient(String watertankId, int port) {
+        Double queryMaxCapacity = null;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            final String baseUrl = "http://localhost:" + port + "/QueryMaxCapacity";
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl).queryParam("id", watertankId);
+
+            ResponseEntity<Map> result = restTemplate.getForEntity(builder.toUriString(), Map.class);
+            queryMaxCapacity = Double.valueOf((String) result.getBody().get("entity"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return queryMaxCapacity;
+    }
 }
