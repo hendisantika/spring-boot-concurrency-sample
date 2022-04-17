@@ -66,4 +66,23 @@ public class WatertankManager {
     public boolean canAddVolumeToWatertank(double liter, Integer watertankId) {
         return getMaxCapacity(watertankId) >= (getCurrentCapacity(watertankId) + liter);
     }
+
+    /**
+     * Add more water to a specific water-tank
+     *
+     * @param liter
+     * @param watertankId
+     * @return {@link Boolean}
+     */
+    public boolean addWater(double liter, Integer watertankId) {
+        if (canAddVolumeToWatertank(liter, watertankId)) {
+            Watertank currentWatertank = watertankServiceStub.getWatertankById(watertankId);
+            double originalCapacity = currentWatertank.getCurrentCapacity();
+            currentWatertank.setCurrentCapacity(originalCapacity + liter);
+            return true;
+        }
+        return false;
+
+    }
+
 }
