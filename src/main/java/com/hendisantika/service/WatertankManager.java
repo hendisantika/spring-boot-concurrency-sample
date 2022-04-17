@@ -45,4 +45,14 @@ public class WatertankManager {
     public double getMaxCapacity(Integer watertankId) {
         return watertankServiceStub.getWatertankById(watertankId).getMaxCapacity();
     }
+
+    /**
+     * Get the current capacity amount of a specific water tank container
+     *
+     * @param watertankId
+     * @return {@link Double}
+     */
+    public double getCurrentCapacity(Integer watertankId) {
+        return watertankServiceStub.getWatertankById(watertankId).getCurrentCapacity();
+    }
 }
