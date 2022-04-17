@@ -1,6 +1,11 @@
 package com.hendisantika.util;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,4 +19,25 @@ import org.springframework.stereotype.Component;
 @Component
 @SuppressWarnings("rawtypes")
 public class WatertankHttpClientUtils {
+    /**
+     * An HTTP client method for invoking /QueryCurrentCapacity endpoint
+     *
+     * @param watertankId
+     * @param port
+     * @return
+     */
+    public double getCurrentCapacityHttpClient(String watertankId, int port) {
+        Double queryCurrentCapacity = null;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            final String baseUrl = "http://localhost:" + port + "/QueryCurrentCapacity";
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl).queryParam("id", watertankId);
+
+            ResponseEntity<Map> result = restTemplate.getForEntity(builder.toUriString(), Map.class);
+            queryCurrentCapacity = Double.valueOf((String) result.getBody().get("entity"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return queryCurrentCapacity;
+    }
 }
