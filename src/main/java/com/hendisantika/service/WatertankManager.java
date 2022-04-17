@@ -120,4 +120,34 @@ public class WatertankManager {
 
     }
 
+    /**
+     * Method will execute new {@link Runnable} in order to add water to every
+     * water-tank that his water capacity is equals to 0 (An empty water-tank)
+     */
+    public void renewWaterTank() {
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                //Retrieve the water-tank DB cache and iterate over it
+                Map<Integer, Watertank> watertanks = watertankServiceStub.getAllWatertanks();
+                for (Watertank watertank : watertanks.values()) {
+                    //Configure a min and max values to adding new water liters to a specific tank
+                    int min = (int) (watertank.getMaxCapacity() / 2);
+                    int max = (int) (watertank.getMaxCapacity() - 5);
+                    long randomeLiter = (long) (Math.random() * (max - min + 1) + min);
+                    //Calculate the percentage of the current water-tank liter capacity
+                    double per = watertank.getMaxCapacity() * watertank.getCurrentCapacity() / 100;
+                    //In case the tank is empty or the percentage of the current water-tank is below 5 - add random amount of liters to the tank
+                    if (watertank.getCurrentCapacity() == 0 || per < 5) {
+                        log.info("A renewal for watertank# {}", watertank.getId());
+                        watertank.setCurrentCapacity(randomeLiter);
+                    }
+                }
+
+            }
+        }, 10, 15, TimeUnit.SECONDS);
+
+    }
+
 }
