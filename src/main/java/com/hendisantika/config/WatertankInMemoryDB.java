@@ -61,4 +61,14 @@ public class WatertankInMemoryDB {
     public Map<Integer, Watertank> getWatertanks() {
         return watertanksStorage;
     }
+
+
+    /**
+     * Metyhod will bind properties under 'app' @see {@ConfigurationProperties}
+     * @param watertanks
+     */
+    public void setWatertanks(Set<Watertank> watertanks) {
+        this.watertanks = watertanks;
+    }
+
 }
