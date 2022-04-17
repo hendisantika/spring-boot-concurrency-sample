@@ -59,4 +59,18 @@ public class WatertankController {
         return Response.status(200).entity(queryMaxCapacity).build();
     }
 
+
+    /**
+     * Retrieve the current capacity amount of a specific water tank container
+     *
+     * @param watertankId
+     * @param req
+     * @param session
+     * @return {@link Response}
+     */
+    @GetMapping(path = "QueryCurrentCapacity")
+    public Response QueryCurrentCapacity(@RequestParam("id") Integer watertankId, @Context HttpServletRequest req, @Context HttpSession session) {
+        String queryCurrentCapacity = String.valueOf(watertankManager.getCurrentCapacity(watertankId));
+        return Response.status(200).entity(queryCurrentCapacity).build();
+    }
 }
