@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ConfigurationProperties(prefix = "app")
 public class WatertankInMemoryDB {
     private static final Logger log = LoggerFactory.getLogger(WatertankInMemoryDB.class);
-    private final Set<Watertank> watertanks = new HashSet<>();
+    private Set<Watertank> watertanks = new HashSet<>();
     private ConcurrentHashMap<Integer, Watertank> watertanksStorage;
 
     /**

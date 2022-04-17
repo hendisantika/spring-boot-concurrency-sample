@@ -37,4 +37,17 @@ public class WatertankService {
         return watertankInMemoryDB.getWatertanks();
     }
 
+    /**
+     * Get a specific Cached waterTanks
+     */
+    public Watertank getWatertankById(Integer watertankId) {
+        synchronized (watertankId) {
+            Watertank watertank = watertankInMemoryDB.getWatertanks().get(watertankId);
+            if (watertank != null)
+                return watertank;
+            else
+                loger.error("An invalid request for a non existed water-tank with id# {}",watertankId);
+            throw new RuntimeException("Coudent find whattenk with id: " + watertankId);
+        }
+    }
 }
