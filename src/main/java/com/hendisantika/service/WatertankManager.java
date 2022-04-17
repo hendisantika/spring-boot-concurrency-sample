@@ -1,9 +1,12 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Watertank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,4 +26,13 @@ public class WatertankManager {
      */
     @Autowired
     private WatertankService watertankServiceStub;
+
+    /**
+     * Get All the Water-tanks
+     *
+     * @return
+     */
+    public Map<Integer, Watertank> getAllWatertanks() {
+        return watertankServiceStub.getAllWatertanks();
+    }
 }
