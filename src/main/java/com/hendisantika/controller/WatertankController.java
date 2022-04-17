@@ -73,4 +73,20 @@ public class WatertankController {
         String queryCurrentCapacity = String.valueOf(watertankManager.getCurrentCapacity(watertankId));
         return Response.status(200).entity(queryCurrentCapacity).build();
     }
+
+
+    /**
+     * Add water amount to a specific water tank container
+     *
+     * @param liter
+     * @param watertankId
+     * @param req
+     * @param session
+     * @return {@link Response}
+     */
+    @GetMapping(path = "AddWater")
+    public Response AddWater(@RequestParam("liter") double liter, @RequestParam("id") Integer watertankId, @Context HttpServletRequest req, @Context HttpSession session) {
+        String addWater = String.valueOf(watertankManager.addWater(liter, watertankId));
+        return Response.status(200).entity(addWater).build();
+    }
 }
