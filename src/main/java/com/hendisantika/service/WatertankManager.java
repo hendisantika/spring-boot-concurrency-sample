@@ -55,4 +55,15 @@ public class WatertankManager {
     public double getCurrentCapacity(Integer watertankId) {
         return watertankServiceStub.getWatertankById(watertankId).getCurrentCapacity();
     }
+
+    /**
+     * Check if more water can be added to a specific water-tank
+     *
+     * @param liter
+     * @param watertankId
+     * @return {@link Boolean}
+     */
+    public boolean canAddVolumeToWatertank(double liter, Integer watertankId) {
+        return getMaxCapacity(watertankId) >= (getCurrentCapacity(watertankId) + liter);
+    }
 }
